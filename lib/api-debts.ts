@@ -1,6 +1,6 @@
-import { TDebtFormValues } from "@/components/debt-form";
+import { TDebtFormValues } from "@/components/table/form";
 
-const BASE_URL = "/api/debts";
+const BASE_URL = "http://localhost:3000/api/debts";
 
 export const getDebts = async () => {
 	const res = await fetch(BASE_URL);

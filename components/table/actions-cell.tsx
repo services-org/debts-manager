@@ -1,13 +1,12 @@
-import * as React from "react";
 import { Pencil, Trash2 } from "lucide-react";
 
 type TDebtActionsCellProps = {
-	onEdit: () => void;
 	onDelete: () => void;
+	onEdit: () => void;
 };
 
 export const DebtActionsCell: React.FC<TDebtActionsCellProps> = ({ onEdit, onDelete }) => (
-	<div className="flex gap-2 justify-center align-middle">
+	<div className="flex gap-2 items-center">
 		<button onClick={onEdit} className="p-1 rounded hover:bg-blue-100 cursor-pointer" title="Edit">
 			<Pencil size={16} className="text-blue-600" />
 		</button>

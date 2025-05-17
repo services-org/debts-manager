@@ -1,19 +1,19 @@
 "use client";
-import * as React from "react";
-import { DebtTable } from "@/components/debt-table";
 import { SummaryCards } from "@/components/summary-cards";
-import { useGetDebts } from "@/lib/hooks/use-debts";
+import { HeroSection } from "@/components/hero-section";
+import { DebtTable } from "@/components/table";
+import { useGet } from "@/hooks";
 
 const Home = () => {
-	const { data: debts = [] } = useGetDebts();
+	const { data = [] } = useGet("/debts", ["debts"]);
 
 	return (
-		<main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 gap-8">
-			<h1 className="text-3xl font-bold mb-4">Debts Manager</h1>
-			<SummaryCards debts={debts} />
-			<section className="w-full max-w-4xl">
+		<main className="container mx-auto flex flex-col gap-10 min-h-screen p-4 sm:p-8">
+			<HeroSection />
+			<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
 				<DebtTable />
-			</section>
+				<SummaryCards debts={data} />
+			</div>
 		</main>
 	);
 };

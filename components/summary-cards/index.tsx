@@ -25,7 +25,7 @@ export const SummaryCards = ({ debts }: TSummaryCards) => {
 	];
 
 	return (
-		<div className="flex flex-col space-y-8 md:col-span-1 col-span-3 items-center">
+		<div className="flex flex-col order-1 md:order-2 space-y-8 md:col-span-1 col-span-3 items-center">
 			{summaryData.map((props) => (
 				<SummaryCard key={props.label} {...props} />
 			))}

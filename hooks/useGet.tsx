@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
-
 const getData = async (api: string) => {
 	try {
-		const response = await fetch(`${DOMAIN}/api${api}`, { method: "GET" });
+		const response = await fetch(`/api${api}`, { method: "GET" });
 		if (!response.ok) throw new Error("Failed to fetch data");
 		return response.json();
 	} catch (error) {

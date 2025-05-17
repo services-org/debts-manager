@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
-
 const updateData = async (api: string, body: any) => {
 	try {
 		if (!body._id) throw new Error("Missing Id");
 
-		const response = await fetch(`${DOMAIN}/api${api}/${body._id}`, { method: "PUT", body: JSON.stringify(body) });
+		const response = await fetch(`/api${api}/${body._id}`, { method: "PUT", body: JSON.stringify(body) });
 		const data = await response.json();
 
 		if (!response.ok) throw new Error("Failed to update data");

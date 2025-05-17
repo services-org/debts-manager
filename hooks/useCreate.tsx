@@ -1,10 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
-
 const createData = async (api: string, data: any) => {
 	try {
-		const response = await fetch(`${DOMAIN}/api${api}`, { method: "POST", body: JSON.stringify(data) });
+		const response = await fetch(`/api${api}`, { method: "POST", body: JSON.stringify(data) });
 		if (!response.ok) throw new Error("Failed to create data");
 		return response.json();
 	} catch (error) {

@@ -5,6 +5,11 @@ import "./globals.css";
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 
+export const metadata = {
+	title: "Debts Manager",
+	description: "Debts Manager",
+};
+
 type TLayout = {
 	children: React.ReactNode;
 };

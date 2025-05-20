@@ -3,10 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 const getData = async (api: string) => {
 	try {
 		const response = await fetch(`/api${api}`, { method: "GET" });
-		if (!response.ok) throw new Error("Failed to fetch data");
-		return response.json();
-	} catch (error) {
-		throw new Error("Failed to fetch data");
+		const data = await response.json();
+
+		if (!response.ok) throw new Error(data);
+		return data;
+	} catch (error: any) {
+		throw new Error(error.message);
 	}
 };
 

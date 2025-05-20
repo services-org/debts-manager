@@ -1,12 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const createData = async (api: string, data: any) => {
+const createData = async (api: string, body: any) => {
 	try {
-		const response = await fetch(`/api${api}`, { method: "POST", body: JSON.stringify(data) });
-		if (!response.ok) throw new Error("Failed to create data");
-		return response.json();
-	} catch (error) {
-		throw new Error("Failed to create data");
+		const response = await fetch(`/api${api}`, { method: "POST", body: JSON.stringify(body) });
+		const data = await response.json();
+
+		if (!response.ok) throw new Error(data);
+		return data;
+	} catch (error: any) {
+		console.error(error);
+		throw new Error(error.message);
 	}
 };
 

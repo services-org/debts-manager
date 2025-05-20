@@ -1,16 +1,18 @@
+import { X, FileTextIcon, DollarSignIcon, CalendarIcon, CheckCircleIcon } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
-import { X, CheckCircle, Clock, FileTextIcon, DollarSignIcon, CalendarIcon, CheckCircleIcon } from "lucide-react";
+import { useEffect } from "react";
 import Image from "next/image";
 
 import { Select } from "../common/select";
 import { Input } from "../common/input";
-import { useEffect } from "react";
+
+export type TStatus = "paid" | "unpaid" | "income";
 
 export type TDebtFormValues = {
 	description: string;
 	amount: number;
 	createdAt: string;
-	status: "paid" | "unpaid";
+	status: TStatus;
 };
 
 type TDebtFormProps = {
@@ -23,8 +25,9 @@ type TDebtFormProps = {
 
 const today = new Date().toISOString().split("T")[0];
 const statusOptions = [
-	{ value: "paid", label: "Paid", icon: <CheckCircle size={18} className="text-green-500" /> },
-	{ value: "unpaid", label: "Unpaid", icon: <Clock size={18} className="text-yellow-500" /> },
+	{ value: "income", label: "Income" },
+	{ value: "unpaid", label: "Unpaid" },
+	{ value: "paid", label: "Paid" },
 ];
 
 const defaultValues = { description: "", amount: 0, createdAt: today, status: "unpaid" as const };
@@ -66,10 +69,10 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 					<Select name="status" label="Status" options={statusOptions} icon={<CheckCircleIcon size={16} className="text-green-500" />} />
 
 					<div className="flex justify-end gap-2 pt-2">
-						<button type="button" onClick={onClose} className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200">
+						<button type="button" onClick={onClose} className="px-4 py-2 cursor-pointer rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200">
 							Cancel
 						</button>
-						<button type="submit" className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+						<button type="submit" className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700">
 							Save
 						</button>
 					</div>

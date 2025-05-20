@@ -7,10 +7,10 @@ const updateData = async (api: string, body: any) => {
 		const response = await fetch(`/api${api}/${body._id}`, { method: "PUT", body: JSON.stringify(body) });
 		const data = await response.json();
 
-		if (!response.ok) throw new Error("Failed to update data");
+		if (!response.ok) throw new Error(data);
 		return data;
-	} catch (error) {
-		throw new Error("Failed to update data");
+	} catch (error: any) {
+		throw new Error(error.message);
 	}
 };
 

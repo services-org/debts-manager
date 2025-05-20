@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-
 const deleteData = async (api: string, body: any) => {
 	try {
 		if (!body._id) throw new Error("Missing Id");
-
 		const response = await fetch(`/api${api}/${body._id}`, { method: "DELETE" });
-		const data = await response.json();
 
-		if (!response.ok) throw new Error("Failed to delete data");
+		const data = await response.json();
+		if (!response.ok) throw new Error(data);
+
 		return data;
-	} catch (error) {
-		throw new Error("Failed to delete data");
+	} catch (error: any) {
+		console.error(error);
+		throw new Error(error.message);
 	}
 };
 

@@ -1,8 +1,8 @@
 import { CheckCircle, Clock } from "lucide-react";
 import { Fragment } from "react";
+import { TStatus } from "./form";
 
 type TDebtStatusCellProps = { status: TStatus };
-type TStatus = "paid" | "unpaid";
 
 export const DebtStatusCell: React.FC<TDebtStatusCellProps> = ({ status }: TDebtStatusCellProps) => {
 	if (status === "paid")

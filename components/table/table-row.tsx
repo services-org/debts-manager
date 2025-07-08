@@ -4,20 +4,20 @@ import { TStatus } from "./form";
 import { cn } from "@/lib/utils";
 
 type TDebt = {
-	_id: string;
 	description: string;
-	amount: number;
 	createdAt: string;
 	status: TStatus;
+	amount: number;
+	_id: string;
 };
 
-type TDebtTableRowProps = {
-	debt: TDebt;
-	onEdit: () => void;
+type TDebtTableRow = {
 	onDelete: () => void;
+	onEdit: () => void;
+	debt: TDebt;
 };
 
-export const DebtTableRow: React.FC<TDebtTableRowProps> = ({ debt, onEdit, onDelete }) => (
+export const DebtTableRow = ({ debt, onEdit, onDelete }: TDebtTableRow) => (
 	<TableRow key={debt._id} className="bg-white rounded-2xl shadow-md transition-all hover:shadow-xl my-4">
 		<TableCell className="py-4 px-4 text-gray-900 text-base font-medium align-middle">{debt.description}</TableCell>
 
@@ -30,8 +30,8 @@ export const DebtTableRow: React.FC<TDebtTableRowProps> = ({ debt, onEdit, onDel
 				className={cn(
 					`inline-block capitalize px-3 py-1 rounded-full text-xs font-semibold shadow`,
 					debt.status === "unpaid" && "bg-yellow-100 text-yellow-700",
-					debt.status === "paid" && "bg-green-100 text-green-700",
-					debt.status === "income" && "bg-blue-100 text-blue-700"
+					debt.status === "income" && "bg-blue-100 text-blue-700",
+					debt.status === "paid" && "bg-green-100 text-green-700"
 				)}>
 				{debt.status}
 			</span>

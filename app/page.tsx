@@ -2,17 +2,14 @@
 import { SummaryCards } from "@/components/summary-cards";
 import { HeroSection } from "@/components/hero-section";
 import { DebtTable } from "@/components/table";
-import { useGet } from "@/hooks";
 
 const Home = () => {
-	const { data = [] } = useGet("/debts", ["debts"]);
-
 	return (
 		<main className="container mx-auto flex flex-col gap-10 min-h-screen p-4 sm:p-8">
 			<HeroSection />
 			<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
 				<DebtTable />
-				<SummaryCards debts={data} />
+				<SummaryCards />
 			</div>
 		</main>
 	);

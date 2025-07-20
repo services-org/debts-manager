@@ -18,7 +18,7 @@ export const useCreate = (api: string, queryKey: string[]) => {
 
 	const mutation = useMutation({
 		mutationFn: (data: any) => createData(api, data),
-		onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+		onSuccess: () => queryKey.map((key) => queryClient.invalidateQueries({ queryKey: [key] })),
 	});
 
 	return mutation;

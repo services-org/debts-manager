@@ -23,8 +23,8 @@ export const DebtTable = () => {
 	const getDebt = useGet(`/debts?from=0&to=${show ? 10e6 : 5}`, ["debts", `${show}`]);
 	const createDebt = useCreate("/debts", ["debts", "analysis"]);
 
-	const updateDebt = useUpdate("/debts", ["debts", "analysis"]);
-	const deleteDebt = useDelete("/debts", ["debts", "analysis"]);
+	const updateDebt = useUpdate(`/debts?_id=${editDebt?._id}`, ["debts", "analysis"]);
+	const deleteDebt = useDelete(`/debts?_id=${deleteId}`, ["debts", "analysis"]);
 
 	const onOpen = (debt: TDebt, type: "add" | "edit") => {
 		if (type === "add") setEditDebt({ status: "unpaid", description: "add", amount: 0, createdAt: today } as TDebt);
@@ -32,15 +32,13 @@ export const DebtTable = () => {
 		setModalOpen(true);
 	};
 
-	const onConfirmDelete = async () => {
+	const onDelete = async () => {
 		if (!deleteId) return;
-		deleteDebt.mutate(
-			{ _id: deleteId },
-			{
-				onError: (e: any) => setLocalError(e.message || "Failed to delete debt"),
-				onSettled: () => setDeleteId(undefined),
-			}
-		);
+
+		deleteDebt.mutate(undefined, {
+			onError: (e: any) => setLocalError(e.message || "Failed to delete debt"),
+			onSettled: () => setDeleteId(undefined),
+		});
 	};
 
 	const onSubmit = async (values: TDebtFormValues) => {
@@ -51,13 +49,10 @@ export const DebtTable = () => {
 			});
 		}
 
-		updateDebt.mutate(
-			{ _id: editDebt?._id, ...values },
-			{
-				onError: (e: any) => setLocalError(e.message || "Failed to update debt"),
-				onSuccess: () => setModalOpen(false),
-			}
-		);
+		updateDebt.mutate(values, {
+			onError: (e: any) => setLocalError(e.message || "Failed to update debt"),
+			onSuccess: () => setModalOpen(false),
+		});
 	};
 
 	return (
@@ -99,7 +94,7 @@ export const DebtTable = () => {
 			</div>
 
 			<DebtForm open={modalOpen} initialValues={editDebt} title={editDebt ? "Edit Debt" : "Add Debt"} onSubmit={onSubmit} onClose={() => setModalOpen(false)} />
-			<ConfirmDialog open={!!deleteId} onConfirm={onConfirmDelete} onCancel={() => setDeleteId(undefined)} />
+			<ConfirmDialog open={!!deleteId} onConfirm={onDelete} onCancel={() => setDeleteId(undefined)} />
 		</div>
 	);
 };

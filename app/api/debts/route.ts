@@ -31,3 +31,33 @@ export const POST = async (req: NextRequest) => {
 		return NextResponse.json(error.message, { status: 400 });
 	}
 };
+
+export const PUT = async (req: NextRequest) => {
+	try {
+		await DBConnection();
+
+		const { _id } = Object.fromEntries(new URL(req.url).searchParams.entries());
+		const body = await req.json();
+
+		const debt = await Debt.findByIdAndUpdate(_id, body, { new: true });
+		if (!debt) return NextResponse.json("Not found", { status: 400 });
+
+		return NextResponse.json(debt);
+	} catch (error: any) {
+		return NextResponse.json(error.message, { status: 400 });
+	}
+};
+
+export const DELETE = async (req: NextRequest) => {
+	try {
+		await DBConnection();
+		const { _id } = Object.fromEntries(new URL(req.url).searchParams.entries());
+
+		const debt = await Debt.findByIdAndDelete(_id);
+		if (!debt) return NextResponse.json("Not found", { status: 400 });
+
+		return NextResponse.json({ success: true });
+	} catch (error: any) {
+		return NextResponse.json(error.message, { status: 400 });
+	}
+};

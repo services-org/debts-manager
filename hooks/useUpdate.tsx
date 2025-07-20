@@ -2,9 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const updateData = async (api: string, body: any) => {
 	try {
-		if (!body._id) throw new Error("Missing Id");
-
-		const response = await fetch(`/api${api}/${body._id}`, { method: "PUT", body: JSON.stringify(body) });
+		const response = await fetch(`/api${api}`, { method: "PUT", body: JSON.stringify(body) });
 		const data = await response.json();
 
 		if (!response.ok) throw new Error(data);
@@ -19,7 +17,7 @@ export const useUpdate = (api: string, queryKey: string[]) => {
 
 	const mutation = useMutation({
 		mutationFn: (body: any) => updateData(api, body),
-		onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+		onSuccess: () => queryKey.map((key) => queryClient.invalidateQueries({ queryKey: [key] })),
 	});
 
 	return mutation;

@@ -21,10 +21,10 @@ export const DebtTable = () => {
 	const [deleteId, setDeleteId] = useState<string>();
 
 	const getDebt = useGet(`/debts?from=0&to=${show ? 10e6 : 5}`, ["debts", `${show}`]);
-	const createDebt = useCreate("/debts", ["debts"]);
+	const createDebt = useCreate("/debts", ["debts", "analysis"]);
 
-	const updateDebt = useUpdate("/debts", ["debts"]);
-	const deleteDebt = useDelete("/debts", ["debts"]);
+	const updateDebt = useUpdate("/debts", ["debts", "analysis"]);
+	const deleteDebt = useDelete("/debts", ["debts", "analysis"]);
 
 	const onOpen = (debt: TDebt, type: "add" | "edit") => {
 		if (type === "add") setEditDebt({ status: "unpaid", description: "add", amount: 0, createdAt: today } as TDebt);

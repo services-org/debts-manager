@@ -35,14 +35,20 @@ export const CardHeader = ({ onAdd }: TCardHeader) => {
 					</button>
 
 					<div className="space-y-2">
-						<div className="flex items-center group gap-2 rounded-md border-2 border-blue-200">
-							<Input placeholder="Search For..." type="search" name="search" />
+						<div className="flex items-center group gap-2 ">
+							<Input
+								className="rounded-md border-2 border-blue-200"
+								placeholder="Search For..."
+								name="search"
+								type="search"
+							/>
 							<button
 								className="flex items-center ml-auto gap-1 px-4 py-2 bg-slate-200 text-black rounded-lg transition cursor-pointer"
 								type="submit">
 								<SearchIcon className="size-6 " />
 							</button>
 						</div>
+
 						{!!searchDebt.data?.length &&
 							searchDebt.data.map((result: any) => (
 								<div

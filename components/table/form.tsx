@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Image from "next/image";
 
-import { Select } from "../common/select";
-import { Input } from "../common/input";
+import { Select } from "../ui/select";
+import { Input } from "../ui/input";
 
 export type TStatus = "paid" | "unpaid" | "income";
 
@@ -36,7 +36,7 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 
 	useEffect(() => {
 		if (initialValues?.description === "add") form.reset(defaultValues);
-		const createdAt = initialValues?.createdAt ? new Date(initialValues.createdAt!).toISOString().split("T")[0] : initialValues?.createdAt;
+		const createdAt = new Date(initialValues?.createdAt ?? Date.now()).toISOString().split("T")[0];
 		form.reset({ ...initialValues, createdAt });
 	}, [initialValues]);
 
@@ -47,7 +47,9 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 			<div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm cursor-pointer" onClick={onClose} />
 
 			<div className="bg-white rounded-xl z-50 shadow-xl w-full max-w-md p-6 animate-fade-in fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-				<button onClick={onClose} className="absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-gray-700">
+				<button
+					className="absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-gray-700"
+					onClick={onClose}>
 					<X size={20} />
 				</button>
 
@@ -59,20 +61,45 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 						height={64}
 						width={64}
 					/>
-					<h2 className="text-xl font-bold text-gray-800">{title || (initialValues ? "Edit Debt" : "Add Debt")}</h2>
+					<h2 className="text-xl font-bold text-gray-800">
+						{title || (initialValues ? "Edit Debt" : "Add Debt")}
+					</h2>
 				</div>
 
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-					<Input name="description" label="Description" icon={<FileTextIcon size={16} className="text-red-500" />} />
-					<Input name="amount" label="Amount" type="number" icon={<DollarSignIcon size={16} className="text-blue-500" />} />
-					<Input name="createdAt" label="Created At" type="date" icon={<CalendarIcon size={16} className="text-cyan-500" />} />
-					<Select name="status" label="Status" options={statusOptions} icon={<CheckCircleIcon size={16} className="text-green-500" />} />
-
+					<Input
+						icon={<FileTextIcon size={16} className="text-red-500" />}
+						name="description"
+						label="Description"
+					/>
+					<Input
+						icon={<DollarSignIcon size={16} className="text-blue-500" />}
+						name="amount"
+						label="Amount"
+						type="number"
+					/>
+					<Input
+						icon={<CalendarIcon size={16} className="text-cyan-500" />}
+						name="createdAt"
+						label="Created At"
+						type="date"
+					/>
+					<Select
+						icon={<CheckCircleIcon size={16} className="text-green-500" />}
+						options={statusOptions}
+						name="status"
+						label="Status"
+					/>
 					<div className="flex justify-end gap-2 pt-2">
-						<button type="button" onClick={onClose} className="px-4 py-2 cursor-pointer rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200">
+						<button
+							className="px-4 py-2 cursor-pointer rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200"
+							onClick={onClose}
+							type="button">
 							Cancel
 						</button>
-						<button type="submit" className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+						<button
+							className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+							type="submit">
 							Save
 						</button>
 					</div>

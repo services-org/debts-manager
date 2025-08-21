@@ -1,18 +1,59 @@
-import { Plus } from "lucide-react";
+"use client";
+import { FormProvider, useForm } from "react-hook-form";
+import { Plus, SearchIcon } from "lucide-react";
+
+import { useCreate } from "@/hooks";
+import { Input } from "../ui/input";
 
 type TCardHeader = {
 	onAdd: () => void;
 };
 
 export const CardHeader = ({ onAdd }: TCardHeader) => {
+	const form = useForm();
+
+	const search = form.watch("search");
+	const searchDebt = useCreate("/debts/search", ["search", search]);
+
+	const onSubmit = (data: any) => {
+		searchDebt.mutate(data);
+	};
+
 	return (
-		<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-			<h2 className="text-2xl font-bold text-gray-800">Debts Overview</h2>
-			<div className="flex gap-2 w-full sm:w-auto">
-				<button onClick={onAdd} className="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer">
-					<Plus size={18} /> Add
-				</button>
-			</div>
-		</div>
+		<FormProvider {...form}>
+			<form
+				className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4"
+				onSubmit={form.handleSubmit(onSubmit)}>
+				<h2 className="text-2xl font-bold text-gray-800">Debts Overview</h2>
+
+				<div className="space-y-2 w-full sm:w-full sm:max-w-md">
+					<button
+						className="flex items-center ml-auto gap-1 px-4 py-2  text-white rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 transition cursor-pointer"
+						onClick={onAdd}
+						type="button">
+						<Plus className="size-4" /> Add
+					</button>
+
+					<div className="space-y-2">
+						<div className="flex items-center group gap-2 rounded-md border-2 border-blue-200">
+							<Input placeholder="Search For..." type="search" name="search" />
+							<button
+								className="flex items-center ml-auto gap-1 px-4 py-2 bg-slate-200 text-black rounded-lg transition cursor-pointer"
+								type="submit">
+								<SearchIcon className="size-6 " />
+							</button>
+						</div>
+						{!!searchDebt.data?.length &&
+							searchDebt.data.map((result: any) => (
+								<div
+									className="text-white px-4 py-2 rounded-md bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-between font-semibold"
+									key={result.description}>
+									<p>{result.description}</p> : <p>{result.count} PCS</p> : <p>{result.amount} $</p>
+								</div>
+							))}
+					</div>
+				</div>
+			</form>
+		</FormProvider>
 	);
 };

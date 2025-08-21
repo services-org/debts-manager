@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow } from "@/components/ui/table";
 import { useGet, useCreate, useUpdate, useDelete } from "@/hooks";
+import { ConfirmDialog } from "../common/confirm-dialog";
 import { DebtForm, TDebtFormValues } from "./form";
 import { DebtTableHeader } from "./table-header";
-import { ConfirmDialog } from "../confirm-dialog";
 import { DebtTableRow } from "./table-row";
 import { CardHeader } from "./card-header";
 import { TDebt } from "../summary-cards";
@@ -67,13 +67,21 @@ export const DebtTable = () => {
 					</TableHeader>
 
 					<TableBody>
-						{!getDebt.isLoading && getDebt.data?.map((debt: TDebt) => <DebtTableRow key={debt._id} debt={debt} onEdit={() => onOpen(debt, "edit")} onDelete={() => setDeleteId(debt._id)} />)}
+						{!getDebt.isLoading &&
+							getDebt.data?.map((debt: TDebt) => (
+								<DebtTableRow
+									key={debt._id}
+									debt={debt}
+									onEdit={() => onOpen(debt, "edit")}
+									onDelete={() => setDeleteId(debt._id)}
+								/>
+							))}
 
 						{!!getDebt.isLoading &&
 							Array(5)
 								.fill(0)
 								.map((_, index) => (
-									<tr key={index}>
+									<tr key={`key-${index}`}>
 										<td colSpan={5} className="py-1 text-gray-500">
 											<div className="w-full h-10 bg-gray-200 animate-pulse rounded-xl" />
 										</td>
@@ -84,7 +92,10 @@ export const DebtTable = () => {
 					{!getDebt.isLoading && (
 						<TableFooter>
 							<TableRow>
-								<TableCell colSpan={5} className="py-1 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => setShow(!show)}>
+								<TableCell
+									className="py-1 text-blue-500 hover:text-blue-700 cursor-pointer"
+									onClick={() => setShow(!show)}
+									colSpan={5}>
 									Show more
 								</TableCell>
 							</TableRow>
@@ -93,7 +104,13 @@ export const DebtTable = () => {
 				</Table>
 			</div>
 
-			<DebtForm open={modalOpen} initialValues={editDebt} title={editDebt ? "Edit Debt" : "Add Debt"} onSubmit={onSubmit} onClose={() => setModalOpen(false)} />
+			<DebtForm
+				open={modalOpen}
+				initialValues={editDebt}
+				title={editDebt ? "Edit Debt" : "Add Debt"}
+				onSubmit={onSubmit}
+				onClose={() => setModalOpen(false)}
+			/>
 			<ConfirmDialog open={!!deleteId} onConfirm={onDelete} onCancel={() => setDeleteId(undefined)} />
 		</div>
 	);

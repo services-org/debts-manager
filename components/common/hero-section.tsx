@@ -1,8 +1,8 @@
 import { BrainIcon, Wallet } from "lucide-react";
 
 type THeroSection = {
-	title?: string;
 	subtitle?: string;
+	title?: string;
 };
 
 export const HeroSection = ({ title = "Smart Debt Tracking", subtitle = "Save more, stress less. Visualize and manage your debts with ease." }: THeroSection) => (

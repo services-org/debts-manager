@@ -1,6 +1,6 @@
 "use client";
 import { SummaryCards } from "@/components/summary-cards";
-import { HeroSection } from "@/components/hero-section";
+import { HeroSection } from "@/components/common/hero-section";
 import { DebtTable } from "@/components/table";
 
 const Home = () => {

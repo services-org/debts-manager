@@ -56,9 +56,8 @@ export const DebtTable = () => {
 	};
 
 	return (
-		<div className="relative w-full order-2 md:order-1 md:col-span-2 col-span-3 bg-blue-50/60 rounded-2xl md:p-8 shadow-none">
+		<div className="relative w-full bg-blue-50/60 rounded-2xl md:p-4 shadow-none">
 			<CardHeader onAdd={() => onOpen({ description: "add" } as TDebt, "add")} />
-
 			{(getDebt.error || localError) && <div className="text-red-500 mb-2">{String(getDebt.error || localError)}</div>}
 
 			<div className="overflow-x-auto">

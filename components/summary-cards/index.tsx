@@ -17,13 +17,28 @@ export const SummaryCards = () => {
 	const { total, paid, unpaid } = getAnalysis.data || { total: 0, paid: 0, unpaid: 0 };
 
 	const summaryData = [
-		{ label: "Total Debts", value: total, icon: <PieChart size={28} className="text-purple-500" />, accent: "from-blue-400 to-blue-600" },
-		{ label: "Paid", value: paid, icon: <CheckCircleIcon size={28} className="text-green-500" />, accent: "from-green-400 to-green-600" },
-		{ label: "Unpaid", value: unpaid, icon: <ClockIcon size={28} className="text-yellow-500" />, accent: "from-yellow-400 to-yellow-600" },
+		{
+			icon: <PieChart size={28} className="text-purple-500" />,
+			accent: "from-blue-400 to-blue-600",
+			label: "Total Debts",
+			value: total,
+		},
+		{
+			icon: <ClockIcon size={28} className="text-yellow-500" />,
+			accent: "from-yellow-400 to-yellow-600",
+			label: "Unpaid",
+			value: unpaid,
+		},
+		{
+			icon: <CheckCircleIcon size={28} className="text-green-500" />,
+			accent: "from-green-400 to-green-600",
+			label: "Paid",
+			value: paid,
+		},
 	];
 
 	return (
-		<div className="flex flex-col order-1 md:order-2 space-y-8 md:col-span-1 col-span-3 items-center">
+		<div className="space-y-8 mb-6">
 			{summaryData.map((props) => (
 				<SummaryCard key={props.label} {...props} />
 			))}

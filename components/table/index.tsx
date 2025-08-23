@@ -105,14 +105,7 @@ export const DebtTable = () => {
 				</Table>
 			</div>
 
-			<DebtForm
-				title={editDebt ? "Edit Debt" : "Add Debt"}
-				onClose={() => setModalOpen(false)}
-				initialValues={editDebt}
-				onSubmit={onSubmit}
-				open={modalOpen}
-			/>
-
+			<DebtForm open={modalOpen} initialValues={editDebt} onClose={() => setModalOpen(false)} onSubmit={onSubmit} />
 			<ConfirmDialog open={!!deleteId} onConfirm={onDelete} onCancel={() => setDeleteId(undefined)} />
 		</div>
 	);

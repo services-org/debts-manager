@@ -20,7 +20,6 @@ type TDebtFormProps = {
 	initialValues?: TDebtFormValues;
 	onClose: () => void;
 	open: boolean;
-	title?: string;
 };
 
 const today = new Date().toISOString().split("T")[0];
@@ -30,7 +29,7 @@ const statusOptions = [
 ];
 
 const defaultValues = { description: "", amount: 0, createdAt: today, status: "unpaid" as const };
-export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDebtFormProps) => {
+export const DebtForm = ({ open, initialValues, onClose, onSubmit }: TDebtFormProps) => {
 	const form = useForm<TDebtFormValues>({ defaultValues });
 
 	useEffect(() => {

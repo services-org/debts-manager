@@ -6,12 +6,12 @@ import Image from "next/image";
 import { Select } from "../ui/select";
 import { Input } from "../ui/input";
 
-export type TStatus = "paid" | "unpaid" | "income";
+export type TStatus = "paid" | "unpaid" 
 
 export type TDebtFormValues = {
 	description: string;
-	amount: number;
 	createdAt: string;
+	amount: number;
 	status: TStatus;
 };
 
@@ -55,7 +55,7 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 				<div className="flex flex-col items-center mb-4">
 					<Image
 						src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=200&q=80"
-						className="w-16 h-16 rounded-full object-cover mb-2"
+						className="size-16 rounded-full object-cover mb-2"
 						alt="Debtor"
 						height={64}
 						width={64}

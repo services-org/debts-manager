@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 type TDebt = {
 	description: string;
 	createdAt: string;
-	status: TStatus;
 	amount: number;
+	status: TStatus;
 	_id: string;
 };
 

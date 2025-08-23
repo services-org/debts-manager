@@ -70,10 +70,10 @@ export const DebtTable = () => {
 						{!getDebt.isLoading &&
 							getDebt.data?.map((debt: TDebt) => (
 								<DebtTableRow
+									onDelete={() => setDeleteId(debt._id)}
+									onEdit={() => onOpen(debt, "edit")}
 									key={debt._id}
 									debt={debt}
-									onEdit={() => onOpen(debt, "edit")}
-									onDelete={() => setDeleteId(debt._id)}
 								/>
 							))}
 
@@ -105,11 +105,11 @@ export const DebtTable = () => {
 			</div>
 
 			<DebtForm
-				open={modalOpen}
-				initialValues={editDebt}
 				title={editDebt ? "Edit Debt" : "Add Debt"}
-				onSubmit={onSubmit}
 				onClose={() => setModalOpen(false)}
+				initialValues={editDebt}
+				onSubmit={onSubmit}
+				open={modalOpen}
 			/>
 			<ConfirmDialog open={!!deleteId} onConfirm={onDelete} onCancel={() => setDeleteId(undefined)} />
 		</div>

@@ -25,7 +25,6 @@ type TDebtFormProps = {
 
 const today = new Date().toISOString().split("T")[0];
 const statusOptions = [
-	{ value: "income", label: "Income" },
 	{ value: "unpaid", label: "Unpaid" },
 	{ value: "paid", label: "Paid" },
 ];
@@ -67,25 +66,21 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 				</div>
 
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+					<Input icon={<FileTextIcon className="text-red-500 size-4" />} name="description" label="Description" />
 					<Input
-						icon={<FileTextIcon size={16} className="text-red-500" />}
-						name="description"
-						label="Description"
-					/>
-					<Input
-						icon={<DollarSignIcon size={16} className="text-blue-500" />}
+						icon={<DollarSignIcon className="text-blue-500 size-4" />}
 						name="amount"
 						label="Amount"
 						type="number"
 					/>
 					<Input
-						icon={<CalendarIcon size={16} className="text-cyan-500" />}
+						icon={<CalendarIcon className="text-cyan-500 size-4" />}
 						name="createdAt"
 						label="Created At"
 						type="date"
 					/>
 					<Select
-						icon={<CheckCircleIcon size={16} className="text-green-500" />}
+						icon={<CheckCircleIcon className="text-green-500 size-4" />}
 						options={statusOptions}
 						name="status"
 						label="Status"
@@ -98,7 +93,7 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 							Cancel
 						</button>
 						<button
-							className="px-4 py-2 cursor-pointer rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+							className="px-4 py-2 cursor-pointer rounded-lg bg-amber-600 text-white hover:bg-amber-700"
 							type="submit">
 							Save
 						</button>

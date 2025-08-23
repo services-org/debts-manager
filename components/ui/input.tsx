@@ -17,7 +17,7 @@ export const Input = ({ type, name, label, icon, placeholder, className }: TInpu
 	return (
 		<div className="w-full">
 			{label && (
-				<label htmlFor={name} className=" text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
+				<label htmlFor={name} className="text-sm font-semibold text-gray-800 mb-1 flex items-center gap-1">
 					{icon} {label}
 				</label>
 			)}
@@ -27,7 +27,7 @@ export const Input = ({ type, name, label, icon, placeholder, className }: TInpu
 				type={type ?? "text"}
 				id={name}
 				className={cn(
-					"w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400",
+					"w-full border border-slate-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-500",
 					className
 				)}
 			/>

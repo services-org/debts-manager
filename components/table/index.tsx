@@ -14,17 +14,17 @@ const today = new Date().toISOString().split("T")[0];
 export const DebtTable = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 
-	const [localError, setLocalError] = useState("");
-	const [show, setShow] = useState(false);
-
 	const [editDebt, setEditDebt] = useState<TDebt>();
 	const [deleteId, setDeleteId] = useState<string>();
 
-	const getDebt = useGet(`/debts?from=0&to=${show ? 10e6 : 5}`, ["debts", `${show}`]);
-	const createDebt = useCreate("/debts", ["debts", "analysis"]);
+	const [localError, setLocalError] = useState("");
+	const [show, setShow] = useState(false);
 
+	const getDebt = useGet(`/debts?from=0&to=${show ? 10e6 : 5}`, ["debts", `${show}`]);
 	const updateDebt = useUpdate(`/debts?_id=${editDebt?._id}`, ["debts", "analysis"]);
+
 	const deleteDebt = useDelete(`/debts?_id=${deleteId}`, ["debts", "analysis"]);
+	const createDebt = useCreate("/debts", ["debts", "analysis"]);
 
 	const onOpen = (debt: TDebt, type: "add" | "edit") => {
 		if (type === "add") setEditDebt({ status: "unpaid", description: "add", amount: 0, createdAt: today } as TDebt);
@@ -56,8 +56,9 @@ export const DebtTable = () => {
 	};
 
 	return (
-		<div className="relative w-full order-2 md:order-1 md:col-span-2 col-span-3 bg-blue-50/60 rounded-2xl p-6 md:p-8 shadow-none">
+		<div className="relative w-full order-2 md:order-1 md:col-span-2 col-span-3 bg-blue-50/60 rounded-2xl md:p-8 shadow-none">
 			<CardHeader onAdd={() => onOpen({ description: "add" } as TDebt, "add")} />
+
 			{(getDebt.error || localError) && <div className="text-red-500 mb-2">{String(getDebt.error || localError)}</div>}
 
 			<div className="overflow-x-auto">
@@ -111,6 +112,7 @@ export const DebtTable = () => {
 				onSubmit={onSubmit}
 				open={modalOpen}
 			/>
+
 			<ConfirmDialog open={!!deleteId} onConfirm={onDelete} onCancel={() => setDeleteId(undefined)} />
 		</div>
 	);

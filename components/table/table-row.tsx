@@ -19,7 +19,7 @@ type TDebtTableRow = {
 };
 
 export const DebtTableRow = ({ debt, onEdit, onDelete }: TDebtTableRow) => (
-	<TableRow key={debt._id} className="bg-white rounded-2xl shadow-md transition-all hover:shadow-xl my-4">
+	<TableRow key={debt._id} className="bg-white rounded-2xl shadow-md transition-all my-4">
 		<TableCell className="p-4 text-gray-900 text-base font-medium align-middle">{debt.description}</TableCell>
 
 		<TableCell className="p-4 text-center align-middle">

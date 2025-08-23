@@ -21,7 +21,7 @@ export const HeroSection = () => (
 				</p>
 			</div>
 			<div className="flex-1 flex justify-center md:justify-end">
-				<BrainIcon size={120} className="text-amber-700 drop-shadow-lg" />
+				<BrainIcon className="text-amber-700 drop-shadow-lg size-24" />
 			</div>
 		</div>
 	</section>

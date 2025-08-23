@@ -24,7 +24,7 @@ export const CardHeader = ({ onAdd }: TCardHeader) => {
 			<form
 				className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4"
 				onSubmit={form.handleSubmit(onSubmit)}>
-				<h2 className="text-2xl font-bold text-clip bg-gradient-to-r from-amber-500 to-amber-700 text-transparent bg-clip-text">
+				<h2 className="text-2xl font-bold mt-2 mx-2 text-clip bg-gradient-to-r from-amber-500 to-amber-700 text-transparent bg-clip-text">
 					Debts Overview
 				</h2>
 

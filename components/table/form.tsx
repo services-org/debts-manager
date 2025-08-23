@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Select } from "../ui/select";
 import { Input } from "../ui/input";
 
-export type TStatus = "paid" | "unpaid" 
+export type TStatus = "paid" | "unpaid";
 
 export type TDebtFormValues = {
 	description: string;
@@ -39,52 +39,54 @@ export const DebtForm = ({ open, title, initialValues, onClose, onSubmit }: TDeb
 		form.reset({ ...initialValues, createdAt });
 	}, [initialValues]);
 
-	if (!open) return null;
+	if (!open) return;
 
 	return (
 		<FormProvider {...form}>
 			<div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm cursor-pointer" onClick={onClose} />
 
 			<div className="bg-white rounded-xl z-50 shadow-xl w-full max-w-md p-6 animate-fade-in fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+				<Image
+					className="absolute object-cover inset-0 z-0 opacity-10"
+					src="/form-background.jpg"
+					alt="Debtor"
+					fill
+				/>
+
 				<button
 					className="absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-gray-700"
 					onClick={onClose}>
 					<X size={20} />
 				</button>
 
-				<div className="flex flex-col items-center mb-4">
-					<Image
-						src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=200&q=80"
-						className="size-16 rounded-full object-cover mb-2"
-						alt="Debtor"
-						height={64}
-						width={64}
-					/>
-					<h2 className="text-xl font-bold text-gray-800">
-						{title || (initialValues ? "Edit Debt" : "Add Debt")}
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 relative z-10">
+					<h2 className="relative text-center text-2xl font-bold z-10 mb-4 text-clip bg-gradient-to-b from-amber-500 to-amber-700 text-transparent bg-clip-text">
+						{initialValues?.description === "add" ? "Add Debt" : "Edit Debt"}
 					</h2>
-				</div>
 
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 					<Input icon={<FileTextIcon className="text-red-500 size-4" />} name="description" label="Description" />
+
 					<Input
 						icon={<DollarSignIcon className="text-blue-500 size-4" />}
 						name="amount"
 						label="Amount"
 						type="number"
 					/>
+
 					<Input
 						icon={<CalendarIcon className="text-cyan-500 size-4" />}
 						name="createdAt"
 						label="Created At"
 						type="date"
 					/>
+
 					<Select
 						icon={<CheckCircleIcon className="text-green-500 size-4" />}
 						options={statusOptions}
 						name="status"
 						label="Status"
 					/>
+
 					<div className="flex justify-end gap-2 pt-2">
 						<button
 							className="px-4 py-2 cursor-pointer rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200"

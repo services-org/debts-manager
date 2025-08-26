@@ -13,20 +13,12 @@ export const SectionHeader = () => {
                 Debts Overview
             </h2>
 
-            <div className="space-y-2 space-x-2">
-                <Button
-                    className="bg-gradient-to-b from-amber-500 to-amber-700 transition-all hover:bg-gradient-to-br"
-                    onClick={() => onOpen("add-debt")}
-                >
-                    <PlusIcon className="size-4 stroke-3" /> Add Debt
-                </Button>
-                <Button
-                    className="bg-gradient-to-b from-amber-500 to-amber-700 transition-all hover:bg-gradient-to-br"
-                    onClick={() => onOpen("add-group")}
-                >
-                    <PlusIcon className="size-4 stroke-3" /> Add Group
-                </Button>
-            </div>
+            <Button
+                className="bg-gradient-to-b from-amber-500 to-amber-700 transition-all hover:bg-gradient-to-br"
+                onClick={() => onOpen("add-debt")}
+            >
+                <PlusIcon className="size-4 stroke-3" /> Add Debt
+            </Button>
 
             <AddDebtModel />
         </div>

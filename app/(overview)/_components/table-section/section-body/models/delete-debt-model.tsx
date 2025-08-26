@@ -16,7 +16,9 @@ export const DeleteDebtModel = () => {
     return (
         <Model modelType="delete-debt" title="Delete Debt" description="Are you sure you want to delete this debt?">
             <div className="flex w-full justify-end">
-                <Button variant="ghost">Cancel</Button>
+                <Button variant="ghost" onClick={onClose}>
+                    Cancel
+                </Button>
                 <Button variant="destructive" onClick={onDelete}>
                     Delete
                 </Button>

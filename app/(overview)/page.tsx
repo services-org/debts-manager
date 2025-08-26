@@ -6,7 +6,7 @@ import { SearchBar } from "./_components/search-bar";
 
 const Home = () => {
     return (
-        <main className="container mx-auto min-h-screen space-y-6 p-4 sm:p-8">
+        <main className="mx-auto min-h-screen max-w-7xl space-y-6 p-4 sm:p-8">
             <HeroSection />
             <div className="grid grid-cols-12 gap-8">
                 <div className="col-span-12 md:order-2 md:col-span-4">

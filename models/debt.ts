@@ -1,10 +1,17 @@
-import mongoose from "mongoose";
+import { Schema, models, model } from "mongoose";
 
-const DebtSchema = new mongoose.Schema({
-	description: { type: String, required: true },
+type TDebt = {
+	status: "paid" | "unpaid";
+	description: string;
+	createdAt: Date;
+	amount: number;
+};
+
+const DebtsSchema = new Schema<TDebt>({
+	description: { type: String, required: true, trim: true },
 	amount: { type: Number, required: true },
 	createdAt: { type: Date, required: true },
-	status: { type: String, required: true, enum: ["paid", "unpaid", "income"] },
+	status: { type: String, required: true, enum: ["paid", "unpaid"] },
 });
 
-export const Debt = mongoose.models.Debt || mongoose.model("Debt", DebtSchema);
+export const Debts = models.Debts || model<TDebt>("Debts", DebtsSchema);

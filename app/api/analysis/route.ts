@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { DBConnection } from "@/lib/mongoose";
-import { Debt } from "@/models/debt";
+import { Debts } from "@/models/debt";
 
 export const GET = async () => {
 	try {
 		await DBConnection();
-		const summary = await Debt.aggregate([{ $group: { _id: "$status", value: { $sum: "$amount" } } }]);
+		const summary = await Debts.aggregate([{ $group: { _id: "$status", value: { $sum: "$amount" } } }]);
 
 		const unpaid = summary.find((item) => item._id === "unpaid");
 		const paid = summary.find((item) => item._id === "paid");

@@ -4,18 +4,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 
 import { debtSchema, TDebtSchema } from "@/app/api/debts/schema";
+import { useCreate, useModel } from "@/hooks";
+
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useCreate, useModel } from "@/hooks";
 
 const statusOptions = [
     { value: "unpaid", label: "Unpaid" },
     { value: "paid", label: "Paid" },
 ];
 
-const defaultValues = { status: "unpaid" as const, createdAt: new Date().toISOString().split("T")[0] };
+const groupOptions = [
+    { value: "personal", label: "Personal" },
+    { value: "civil", label: "Civil" },
+];
+
+const defaultValues = { status: "unpaid" as const, group: "civil" as const, createdAt: new Date().toISOString().split("T")[0] };
 export const AddDebtModel = () => {
     const form = useForm<TDebtSchema>({ resolver: zodResolver(debtSchema), defaultValues });
     const createDebt = useCreate("/debts", ["debts", "analysis"]);
@@ -28,18 +34,20 @@ export const AddDebtModel = () => {
     };
 
     return (
-        <Model title="Add Debt" description="Add a new debt to the overview" modelType="add-debt">
+        <Model modelType="add-debt" title="Add Debt" description="Add a new debt to the overview">
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
-                    <Image
-                        className="absolute inset-0 z-0 object-cover opacity-10"
-                        src="/form-background.jpg"
-                        alt="Debtor"
-                        fill
-                    />
+                    <Image fill src="/debts.jpg" alt="Debtor" className="absolute inset-0 z-0 object-cover opacity-10" />
 
                     <div className="relative">
                         <div className="space-y-6">
+                            <Select
+                                icon={<CheckCircleIcon className="size-4 text-purple-500" />}
+                                options={groupOptions}
+                                name="group"
+                                label="Group"
+                            />
+
                             <Input
                                 icon={<FileTextIcon className="size-4 text-red-500" />}
                                 name="description"

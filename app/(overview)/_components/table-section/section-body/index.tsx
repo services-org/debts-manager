@@ -11,10 +11,10 @@ import { DeleteDebtModel } from "./models/delete-debt-model";
 import { AmountCell } from "./cells/amount";
 import { ActionsCell } from "./cells/actions";
 import { StatusCell } from "./cells/status";
+import { GroupCell } from "./cells/group";
 
 export const SectionBody = () => {
     const [showMore, setShowMore] = useState(false);
-
     const getDebts = useGet(`/debts?from=0&to=${showMore ? 10e6 : 5}`, ["debts", `show-${showMore}`]);
 
     const debts = useMemo(() => {
@@ -22,6 +22,7 @@ export const SectionBody = () => {
         return getDebts.data.map((debt: TDebtSchema & { _id: string }) => ({
             _id: debt._id,
             description: debt.description,
+            group: <GroupCell group={debt.group} />,
             status: <StatusCell status={debt.status} />,
             amount: <AmountCell amount={debt.amount} />,
             createdAt: new Date(debt.createdAt).toISOString().split("T")[0],
@@ -34,7 +35,7 @@ export const SectionBody = () => {
             <Table data={debts} />
 
             <Button
-                className="ml-auto flex items-end bg-gradient-to-b from-amber-500 to-amber-700 hover:bg-gradient-to-br"
+                className="ml-auto flex items-end bg-linear-to-b from-amber-500 to-amber-700 hover:bg-linear-to-br"
                 onClick={() => setShowMore(!showMore)}
             >
                 {showMore ? "Show Less" : "Show More"}

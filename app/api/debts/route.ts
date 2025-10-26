@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
         const to = parseInt(query.to || "100");
 
         const debts = await Debts.find()
-            .select("description amount status createdAt")
+            .select("description group amount status createdAt")
             .sort("-createdAt")
             .skip(from)
             .limit(to - from);

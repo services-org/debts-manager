@@ -5,7 +5,7 @@ type TAnalysisCard = {
 };
 
 export const AnalysisCard = ({ label, value, icon }: TAnalysisCard) => (
-    <div className="relative min-h-[120px] w-full rounded-xl border-2 border-amber-300 bg-gradient-to-br from-amber-200 to-amber-50 px-5 pt-6 pb-4 shadow-lg transition-transform duration-200">
+    <div className="relative min-h-[120px] w-full rounded-xl border-2 border-amber-300 bg-linear-to-br from-amber-200 to-amber-50 px-5 pt-6 pb-4 shadow-lg transition-transform duration-200">
         <div className="absolute -top-5 -left-5 flex items-center justify-center rounded-full border-2 border-amber-200 bg-white/90 p-2 shadow transition-all">
             {icon}
         </div>

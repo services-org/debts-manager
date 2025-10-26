@@ -5,15 +5,21 @@ import { useEffect } from "react";
 import Image from "next/image";
 
 import { debtSchema, TDebtSchema } from "@/app/api/debts/schema";
+import { useUpdate, useModel } from "@/hooks";
+
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useUpdate, useModel } from "@/hooks";
 
 const statusOptions = [
     { value: "unpaid", label: "Unpaid" },
     { value: "paid", label: "Paid" },
+];
+
+const groupOptions = [
+    { value: "personal", label: "Personal" },
+    { value: "civil", label: "Civil" },
 ];
 
 export const UpdateDebtModel = () => {
@@ -24,37 +30,46 @@ export const UpdateDebtModel = () => {
 
     useEffect(() => {
         if (!data?.debt) return;
-        form.setValue("description", data.debt.description);
         form.setValue("createdAt", new Date(data.debt.createdAt).toISOString().split("T")[0]);
+        form.setValue("description", data.debt.description);
         form.setValue("amount", data.debt.amount);
         form.setValue("status", data.debt.status);
+        form.setValue("group", data.debt.group);
     }, [data?.debt]);
 
     const onSubmit = (values: TDebtSchema) => {
         updateDebt.mutate({ _id: data?.debt?._id, ...values }, { onSuccess: onClose });
     };
 
-    console.log(form.formState.errors);
-
     if (!open || type !== "update-debt" || !data?.debt) return;
+
 
     return (
         <Model title="Update Debt" description="Update an existing debt to the overview" modelType="update-debt">
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
-                    <Image
-                        className="absolute inset-0 z-0 object-cover opacity-10"
-                        src="/form-background.jpg"
-                        alt="Debtor"
-                        fill
-                    />
+                    <Image className="absolute inset-0 z-0 object-cover opacity-10" src="/debts.jpg" alt="Debtor" fill />
 
                     <div className="relative">
                         <div className="space-y-6">
+                            <Select
+                                icon={<CheckCircleIcon className="size-4 text-purple-500" />}
+                                options={groupOptions}
+                                name="group"
+                                label="Group"
+                            />
+
                             <Input
                                 icon={<FileTextIcon className="size-4 text-red-500" />}
                                 name="description"
                                 label="Description"
+                            />
+
+                            <Input
+                                icon={<DollarSignIcon className="size-4 text-blue-500" />}
+                                name="amount"
+                                label="Amount"
+                                type="number"
                             />
 
                             <Input

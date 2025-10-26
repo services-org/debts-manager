@@ -1,10 +1,13 @@
 import z from "zod/v3";
 
 export const debtSchema = z.object({
-    description: z.string().nonempty(),
+    group: z.enum(["personal", "civil"]),
     status: z.enum(["paid", "unpaid"]),
-    createdAt: z.string().nonempty(),
+
+    description: z.string().nonempty(),
     amount: z.number().positive(),
+
+    createdAt: z.string().nonempty(),
 });
 
 export type TDebtSchema = z.infer<typeof debtSchema>;

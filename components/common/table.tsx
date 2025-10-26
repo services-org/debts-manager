@@ -15,7 +15,7 @@ export const Table = ({ caption, data }: TTable) => {
             <TableCaption>{caption}</TableCaption>
 
             <TableHeader>
-                <TableRow className="rounded-t-xl bg-gradient-to-b from-amber-500 to-amber-700 text-base text-white capitalize shadow">
+                <TableRow className="rounded-t-xl bg-linear-to-b from-amber-500 to-amber-700 text-base text-white capitalize shadow">
                     {headers?.map((header, index) => (
                         <TableHead key={header} className={cn("px-2 font-bold text-white", index && "text-center")}>
                             {header.replaceAll(/[A-Z]/g, " $&")}

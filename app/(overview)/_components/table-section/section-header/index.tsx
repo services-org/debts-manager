@@ -9,16 +9,17 @@ export const SectionHeader = () => {
 
     return (
         <div className="flex flex-wrap items-center justify-between gap-4">
-            <h2 className="mx-2 bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-2xl font-bold text-clip whitespace-nowrap text-transparent md:text-3xl">
+            <h2 className="mx-2 bg-linear-to-r from-amber-500 to-amber-700 bg-clip-text text-2xl font-bold text-clip whitespace-nowrap text-transparent md:text-3xl">
                 Debts Overview
             </h2>
-
-            <Button
-                className="bg-gradient-to-b from-amber-500 to-amber-700 transition-all hover:bg-gradient-to-br"
-                onClick={() => onOpen("add-debt")}
-            >
-                <PlusIcon className="size-4 stroke-3" /> Add Debt
-            </Button>
+            <div className="space-x-2">
+                <Button
+                    className="bg-linear-to-b from-amber-500 to-amber-700 transition-all hover:bg-linear-to-br"
+                    onClick={() => onOpen("add-debt")}
+                >
+                    <PlusIcon className="size-4 stroke-3" /> Add Debt
+                </Button>
+            </div>
 
             <AddDebtModel />
         </div>

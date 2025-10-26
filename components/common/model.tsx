@@ -49,7 +49,7 @@ export const Model = ({ title, children, description, ...rest }: TModel) => {
             <h2 className="relative z-10 mb-4">Add Debt</h2>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-2xl font-bold text-clip text-transparent">
+                    <DialogTitle className="bg-linear-to-b from-amber-400 to-amber-700 bg-clip-text text-2xl font-bold text-clip text-transparent">
                         {title}
                     </DialogTitle>
                     <DialogDescription>{description ?? "___"}</DialogDescription>

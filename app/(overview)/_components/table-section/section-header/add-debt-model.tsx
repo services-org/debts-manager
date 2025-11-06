@@ -30,7 +30,12 @@ export const AddDebtModel = () => {
     if (!open || type !== "add-debt") return;
 
     const onSubmit = (data: TDebtSchema) => {
-        createDebt.mutate(data, { onSuccess: onClose });
+        createDebt.mutate(data, {
+            onSuccess: () => {
+                form.reset();
+                onClose();
+            },
+        });
     };
 
     return (

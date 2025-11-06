@@ -41,14 +41,13 @@ export const UpdateDebtModel = () => {
         updateDebt.mutate({ _id: data?.debt?._id, ...values }, { onSuccess: onClose });
     };
 
-    if (!open || type !== "update-debt" || !data?.debt) return;
-
+    if (!open || !data?.debt || type !== "update-debt") return;
 
     return (
-        <Model title="Update Debt" description="Update an existing debt to the overview" modelType="update-debt">
+        <Model modelType="update-debt" title="Update Debt" description="Update an existing debt to the overview">
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
-                    <Image className="absolute inset-0 z-0 object-cover opacity-10" src="/debts.jpg" alt="Debtor" fill />
+                    <Image fill src="/debts.jpg" alt="Debtor" className="absolute inset-0 z-0 object-cover opacity-10" />
 
                     <div className="relative">
                         <div className="space-y-6">
@@ -63,13 +62,6 @@ export const UpdateDebtModel = () => {
                                 icon={<FileTextIcon className="size-4 text-red-500" />}
                                 name="description"
                                 label="Description"
-                            />
-
-                            <Input
-                                icon={<DollarSignIcon className="size-4 text-blue-500" />}
-                                name="amount"
-                                label="Amount"
-                                type="number"
                             />
 
                             <Input

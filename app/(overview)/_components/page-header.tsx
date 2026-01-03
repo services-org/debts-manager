@@ -1,13 +1,14 @@
 "use client";
-import { UserButton } from "@clerk/nextjs";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export const PageHeader = () => {
     const [isDark, setIsDark] = useState(false);
+    const { user } = useUser();
 
     useEffect(() => {
         // Check initial theme
@@ -27,7 +28,7 @@ export const PageHeader = () => {
             <div className="flex items-center gap-2">
                 <Image src="/logo.png" alt="Debts Manager Logo" width={32} height={32} className="size-6" />
                 <h1 className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
-                    Debts Manager
+                    {user?.fullName ?? "Debts Manager"}
                 </h1>
             </div>
 

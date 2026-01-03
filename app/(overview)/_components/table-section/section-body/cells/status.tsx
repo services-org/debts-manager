@@ -8,9 +8,9 @@ export const StatusCell = ({ status }: TStatusCell) => {
     return (
         <span
             className={cn(
-                `mx-auto block w-fit rounded-full px-3 py-1 text-center text-xs font-semibold text-black capitalize shadow`,
-                status === "unpaid" && "bg-linear-to-b from-amber-300 to-amber-500",
-                status === "paid" && "bg-linear-to-b from-green-300 to-green-500",
+                "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize",
+                status === "unpaid" && "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+                status === "paid" && "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
             )}
         >
             {status}

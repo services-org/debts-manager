@@ -3,7 +3,7 @@ import { SectionBody } from "./section-body";
 
 export const TableSection = () => {
     return (
-        <div className="bg-linear-to-br from-amber-50 to-amber-100 p-4 shadow-lg">
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-colors sm:rounded-2xl dark:border-slate-700 dark:bg-slate-800/50">
             <SectionHeader />
             <SectionBody />
         </div>

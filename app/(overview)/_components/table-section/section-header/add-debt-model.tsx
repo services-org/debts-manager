@@ -1,10 +1,11 @@
+"use client";
 import { CalendarIcon, CheckCircleIcon, DollarSignIcon, FileTextIcon } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 
 import { debtSchema, TDebtSchema } from "@/app/api/debts/schema";
-import { useCreate, useModel } from "@/hooks";
+import { useCreate, useGet, useModel } from "@/hooks";
 
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
@@ -16,18 +17,25 @@ const statusOptions = [
     { value: "paid", label: "Paid" },
 ];
 
-const groupOptions = [
-    { value: "personal", label: "Personal" },
-    { value: "civil", label: "Civil" },
-];
-
-const defaultValues = { status: "unpaid" as const, group: "civil" as const, createdAt: new Date().toISOString().split("T")[0] };
 export const AddDebtModel = () => {
-    const form = useForm<TDebtSchema>({ resolver: zodResolver(debtSchema), defaultValues });
+    const form = useForm<TDebtSchema>({ resolver: zodResolver(debtSchema) });
     const createDebt = useCreate("/debts", ["debts", "analysis"]);
 
+    // Fetch dynamic groups
+    const getGroups = useGet("/groups", ["groups"]);
+    const groupOptions = (getGroups.data || []).map((g: any) => ({ value: g._id, label: g.name }));
+
     const { open, type, onClose } = useModel();
-    if (!open || type !== "add-debt") return;
+
+    // Set default values after groups are loaded
+    const firstGroupId = groupOptions[0]?.value;
+    if (firstGroupId && !form.getValues("group")) {
+        form.setValue("group", firstGroupId);
+        form.setValue("status", "unpaid");
+        form.setValue("createdAt", new Date().toISOString().split("T")[0]);
+    }
+
+    if (!open || type !== "add-debt") return null;
 
     const onSubmit = (data: TDebtSchema) => {
         createDebt.mutate(data, {

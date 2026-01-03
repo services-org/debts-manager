@@ -1,4 +1,6 @@
+"use client";
 import { useMemo, useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { TDebtSchema } from "@/app/api/debts/schema";
 import { Button } from "@/components/ui/button";
@@ -31,15 +33,31 @@ export const SectionBody = () => {
     }, [getDebts.data]);
 
     return (
-        <div className="">
-            <Table data={debts} />
+        <div className="p-3 sm:p-4">
+            <div className="overflow-x-auto">
+                <Table data={debts} isLoading={getDebts.isPending} />
+            </div>
 
-            <Button
-                className="ml-auto flex items-end bg-linear-to-b from-amber-500 to-amber-700 hover:bg-linear-to-br"
-                onClick={() => setShowMore(!showMore)}
-            >
-                {showMore ? "Show Less" : "Show More"}
-            </Button>
+            <div className="mt-4 flex justify-center border-t border-slate-200 pt-4 dark:border-slate-700">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-slate-600 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200"
+                    onClick={() => setShowMore(!showMore)}
+                >
+                    {showMore ? (
+                        <>
+                            <ChevronUpIcon className="size-4" />
+                            Show Less
+                        </>
+                    ) : (
+                        <>
+                            <ChevronDownIcon className="size-4" />
+                            Show More
+                        </>
+                    )}
+                </Button>
+            </div>
 
             <DeleteDebtModel />
             <UpdateDebtModel />

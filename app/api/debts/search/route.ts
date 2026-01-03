@@ -1,5 +1,7 @@
-import { DBConnection } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+
+import { DBConnection } from "@/lib/mongoose";
 import { Debts } from "@/models/debt";
 
 type TResult = {
@@ -11,12 +13,16 @@ type TResult = {
 
 export const POST = async (req: Request) => {
     try {
+        const { userId } = await auth();
+        if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
+
         await DBConnection();
 
         const { search } = await req.json();
         if (!search) return NextResponse.json("Missing Data", { status: 400 });
 
         const debts = await Debts.find({
+            userId,
             description: { $regex: search, $options: "i" },
         });
 

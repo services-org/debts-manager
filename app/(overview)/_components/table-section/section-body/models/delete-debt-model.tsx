@@ -1,16 +1,16 @@
+"use client";
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
 import { useDelete, useModel } from "@/hooks";
 
 export const DeleteDebtModel = () => {
     const { open, type, data, onClose } = useModel();
-    const deleteDebt = useDelete(`/debts?_id=${data?.debtId}`, ["debts", "analysis"]);
+    const deleteDebt = useDelete("/debts", ["debts", "analysis"]);
 
-    if (!open || type !== "delete-debt" || !data?.debtId) return;
+    if (!open || type !== "delete-debt" || !data?.debtId) return null;
 
     const onDelete = () => {
-        deleteDebt.mutate();
-        onClose();
+        deleteDebt.mutate(data.debtId, { onSuccess: onClose });
     };
 
     return (

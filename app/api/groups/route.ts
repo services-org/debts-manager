@@ -2,28 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 
 import { DBConnection } from "@/lib/mongoose";
+import { Groups } from "@/models/group";
 import { Debts } from "@/models/debt";
-import { debtSchema } from "./schema";
+import { groupSchema } from "./schema";
 
-export const GET = async (req: NextRequest) => {
+// Default groups to create for new users
+const defaultGroups = [{ name: "Personal", color: "#22c55e" }];
+
+export const GET = async () => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
 
-        await DBConnection();
+        const existingGroups = await Groups.find({ userId }).sort("name");
+        if (existingGroups.length) return NextResponse.json(existingGroups);
 
-        const query = Object.fromEntries(new URL(req.url).searchParams.entries());
-        const from = Number.parseInt(query.from || "0");
-        const to = Number.parseInt(query.to || "100");
+        const groupsToCreate = defaultGroups.map((g) => ({ ...g, userId }));
+        await Groups.insertMany(groupsToCreate);
 
-        const debts = await Debts.find({ userId })
-            .populate("group", "name color")
-            .select("description group amount status createdAt")
-            .sort("-createdAt")
-            .skip(from)
-            .limit(to - from);
-
-        return NextResponse.json(debts);
+        const newGroups = await Groups.find({ userId }).sort("name");
+        return NextResponse.json(newGroups);
     } catch (error: any) {
         return NextResponse.json(error.message, { status: 400 });
     }
@@ -31,17 +31,20 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
 
-        await DBConnection();
-
         const body = await req.json();
-        const data = debtSchema.parse(body);
+        const data = groupSchema.parse(body);
 
-        const debt = await Debts.create({ ...data, userId });
-        return NextResponse.json(debt, { status: 201 });
+        const group = await Groups.create({ ...data, userId });
+        return NextResponse.json(group, { status: 201 });
     } catch (error: any) {
+        if (error.code === 11000) {
+            return NextResponse.json("Group name already exists", { status: 400 });
+        }
         return NextResponse.json(error.message, { status: 400 });
     }
 };
@@ -56,12 +59,15 @@ export const PUT = async (req: NextRequest) => {
         const { _id, ...body } = await req.json();
         if (!_id) return NextResponse.json("ID is required", { status: 400 });
 
-        const data = debtSchema.parse(body);
-        const updatedDebt = await Debts.updateOne({ _id, userId }, data);
+        const data = groupSchema.parse(body);
+        const updatedGroup = await Groups.updateOne({ _id, userId }, data);
 
-        if (!updatedDebt.modifiedCount) return NextResponse.json("Something Is Wrong", { status: 400 });
+        if (!updatedGroup.modifiedCount) return NextResponse.json("Group not found", { status: 404 });
         return NextResponse.json("Updated Successfully");
     } catch (error: any) {
+        if (error.code === 11000) {
+            return NextResponse.json("Group name already exists", { status: 400 });
+        }
         return NextResponse.json(error.message, { status: 400 });
     }
 };
@@ -76,8 +82,14 @@ export const DELETE = async (req: NextRequest) => {
         const { _id } = Object.fromEntries(new URL(req.url).searchParams.entries());
         if (!_id) return NextResponse.json("ID is required", { status: 400 });
 
-        const debt = await Debts.findOneAndDelete({ _id, userId });
-        if (!debt) return NextResponse.json("Not found", { status: 400 });
+        // Check if any debts are using this group
+        const debtsWithGroup = await Debts.countDocuments({ group: _id, userId });
+        if (debtsWithGroup > 0) {
+            return NextResponse.json(`Cannot delete: ${debtsWithGroup} debts are using this group`, { status: 400 });
+        }
+
+        const group = await Groups.findOneAndDelete({ _id, userId });
+        if (!group) return NextResponse.json("Group not found", { status: 404 });
 
         return NextResponse.json("Deleted Successfully");
     } catch (error: any) {

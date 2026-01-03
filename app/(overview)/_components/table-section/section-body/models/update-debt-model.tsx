@@ -1,3 +1,4 @@
+"use client";
 import { CalendarIcon, CheckCircleIcon, DollarSignIcon, FileTextIcon } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -5,7 +6,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 
 import { debtSchema, TDebtSchema } from "@/app/api/debts/schema";
-import { useUpdate, useModel } from "@/hooks";
+import { useUpdate, useGet, useModel } from "@/hooks";
 
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
@@ -17,14 +18,13 @@ const statusOptions = [
     { value: "paid", label: "Paid" },
 ];
 
-const groupOptions = [
-    { value: "personal", label: "Personal" },
-    { value: "civil", label: "Civil" },
-];
-
 export const UpdateDebtModel = () => {
     const form = useForm<TDebtSchema>({ resolver: zodResolver(debtSchema) });
     const updateDebt = useUpdate(`/debts`, ["debts", "analysis"]);
+
+    // Fetch dynamic groups
+    const getGroups = useGet("/groups", ["groups"]);
+    const groupOptions = (getGroups.data || []).map((g: any) => ({ value: g._id, label: g.name }));
 
     const { open, type, data, onClose } = useModel();
 
@@ -34,14 +34,16 @@ export const UpdateDebtModel = () => {
         form.setValue("description", data.debt.description);
         form.setValue("amount", data.debt.amount);
         form.setValue("status", data.debt.status);
-        form.setValue("group", data.debt.group);
-    }, [data?.debt]);
+        // Handle group - could be object (populated) or string (ID)
+        const groupId = typeof data.debt.group === "object" ? data.debt.group._id : data.debt.group;
+        form.setValue("group", groupId);
+    }, [data?.debt, form]);
 
     const onSubmit = (values: TDebtSchema) => {
         updateDebt.mutate({ _id: data?.debt?._id, ...values }, { onSuccess: onClose });
     };
 
-    if (!open || !data?.debt || type !== "update-debt") return;
+    if (!open || !data?.debt || type !== "update-debt") return null;
 
     return (
         <Model modelType="update-debt" title="Update Debt" description="Update an existing debt to the overview">

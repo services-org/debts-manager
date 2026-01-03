@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TanstackProvider } from "@/lib/tanstack";
 import "@/public/styles.css";
@@ -16,11 +17,13 @@ type TLayout = {
 
 const Layout = ({ children }: TLayout) => {
     return (
-        <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`}>
-                <TanstackProvider>{children}</TanstackProvider>
-            </body>
-        </html>
+        <ClerkProvider>
+            <html lang="en">
+                <body className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`}>
+                    <TanstackProvider>{children}</TanstackProvider>
+                </body>
+            </html>
+        </ClerkProvider>
     );
 };
 

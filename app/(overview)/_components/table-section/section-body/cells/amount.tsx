@@ -4,7 +4,7 @@ type TAmountCell = {
 
 export const AmountCell = ({ amount }: TAmountCell) => {
     return (
-        <span className="rounded-full bg-linear-to-b from-amber-500 to-amber-700 px-3 py-1 text-base font-bold text-white shadow">
+        <span className="inline-flex items-center rounded-lg bg-linear-to-r from-amber-500 to-orange-500 px-2.5 py-1 text-sm font-bold text-white shadow-sm">
             ${amount.toLocaleString()}
         </span>
     );

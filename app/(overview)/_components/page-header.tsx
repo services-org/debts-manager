@@ -4,6 +4,7 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export const PageHeader = () => {
     const [isDark, setIsDark] = useState(false);
@@ -23,9 +24,12 @@ export const PageHeader = () => {
 
     return (
         <header className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-md transition-colors sm:px-6 md:px-8 dark:border-slate-700 dark:bg-slate-900/80">
-            <h1 className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
-                Debts Manager
-            </h1>
+            <div className="flex items-center gap-2">
+                <Image src="/logo.png" alt="Debts Manager Logo" width={32} height={32} className="size-6" />
+                <h1 className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
+                    Debts Manager
+                </h1>
+            </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
                 <Button

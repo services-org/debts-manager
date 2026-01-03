@@ -28,7 +28,7 @@ export const PageHeader = () => {
             <div className="flex items-center gap-2">
                 <Image src="/logo.png" alt="Debts Manager Logo" width={32} height={32} className="size-6" />
                 <h1 className="bg-linear-to-r from-amber-500 to-orange-500 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
-                    {user?.fullName ?? "Debts Manager"}
+                    HI! {user?.firstName}
                 </h1>
             </div>
 

@@ -2,6 +2,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { SearchIcon } from "lucide-react";
 
+import { useTranslation } from "@/lib/i18n";
 import { ListItems } from "@/components/common";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { ResultItem } from "./result-item";
 import { useCreate } from "@/hooks";
 
 export const SearchBar = () => {
+    const { t } = useTranslation();
     const searchDebt = useCreate("/debts/search", ["search"]);
     const form = useForm();
 
@@ -19,11 +21,11 @@ export const SearchBar = () => {
     return (
         <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-3 sm:mt-8">
-                <h2 className="text-lg font-semibold text-slate-800 sm:text-xl dark:text-slate-200">Search</h2>
+                <h2 className="text-lg font-semibold text-slate-800 sm:text-xl dark:text-slate-200">{t("search.title")}</h2>
                 <div className="flex items-center gap-2">
                     <Input
                         className="flex-1 rounded-lg border-slate-300 bg-white text-sm placeholder:text-slate-400 focus:border-amber-500 focus:ring-amber-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:placeholder:text-slate-500"
-                        placeholder="Search debts..."
+                        placeholder={t("search.placeholder")}
                         name="search"
                         type="search"
                     />

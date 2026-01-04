@@ -1,5 +1,7 @@
 import { CheckCircleIcon, ClockIcon, PieChartIcon } from "lucide-react";
 
+import { useTranslation } from "@/lib/i18n";
+
 type TGroupCard = {
     name: string;
     color: string;
@@ -9,6 +11,7 @@ type TGroupCard = {
 };
 
 export const GroupCard = ({ name, color, total, unpaid, paid }: TGroupCard) => {
+    const { t } = useTranslation();
     const paidPercentage = total > 0 ? Math.round((paid / total) * 100) : 0;
 
     return (
@@ -33,7 +36,7 @@ export const GroupCard = ({ name, color, total, unpaid, paid }: TGroupCard) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400">
                         <PieChartIcon className="size-4" />
-                        <span>Total</span>
+                        <span>{t("analysis.total")}</span>
                     </div>
                     <p className="font-bold text-slate-800 dark:text-slate-100">${total?.toLocaleString()}</p>
                 </div>
@@ -42,7 +45,7 @@ export const GroupCard = ({ name, color, total, unpaid, paid }: TGroupCard) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
                         <ClockIcon className="size-4" />
-                        <span>Unpaid</span>
+                        <span>{t("analysis.unpaid")}</span>
                     </div>
                     <p className="font-bold text-slate-800 dark:text-slate-100">${unpaid?.toLocaleString()}</p>
                 </div>
@@ -51,7 +54,7 @@ export const GroupCard = ({ name, color, total, unpaid, paid }: TGroupCard) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
                         <CheckCircleIcon className="size-4" />
-                        <span>Paid</span>
+                        <span>{t("analysis.paid")}</span>
                     </div>
                     <p className="font-bold text-slate-800 dark:text-slate-100">${paid?.toLocaleString()}</p>
                 </div>
@@ -64,7 +67,10 @@ export const GroupCard = ({ name, color, total, unpaid, paid }: TGroupCard) => {
                             style={{ width: `${paidPercentage}%` }}
                         />
                     </div>
-                    <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">{paidPercentage}% paid</p>
+                    <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
+                        {paidPercentage}
+                        {t("analysis.paidPercent")}
+                    </p>
                 </div>
             </div>
         </div>

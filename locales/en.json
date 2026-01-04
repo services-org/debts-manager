@@ -1,0 +1,69 @@
+{
+    "header": {
+        "greeting": "HI!"
+    },
+    "hero": {
+        "badge": "SMART TRACKING",
+        "title1": "Take Control of Your",
+        "title2": "Financial Future",
+        "description": "Visualize, track, and conquer your debts with intelligent insights.",
+        "trackProgress": "Track Progress",
+        "realTime": "Real-time",
+        "manage": "Manage",
+        "allDebts": "All Debts"
+    },
+    "analysis": {
+        "totalDebts": "Total Debts",
+        "unpaid": "Unpaid",
+        "paid": "Paid",
+        "groupsHeading": "Groups Analysis",
+        "groupsBreakdown": "Groups Breakdown",
+        "total": "Total",
+        "paidPercent": "% paid"
+    },
+    "search": {
+        "title": "Search",
+        "placeholder": "Search debts..."
+    },
+    "table": {
+        "title": "Debts Overview",
+        "groups": "Groups",
+        "addDebt": "Add Debt",
+        "description": "Description",
+        "amount": "Amount",
+        "status": "Status",
+        "createdAt": "Created At",
+        "actions": "Actions",
+        "group": "Group"
+    },
+    "modals": {
+        "addDebt": {
+            "title": "Add Debt",
+            "description": "Add a new debt to the overview"
+        },
+        "updateDebt": {
+            "title": "Update Debt",
+            "description": "Update an existing debt to the overview"
+        },
+        "manageGroups": {
+            "title": "Manage Groups",
+            "description": "Create and manage your debt categories",
+            "groupName": "Group Name",
+            "color": "Color",
+            "yourGroups": "Your Groups"
+        }
+    },
+    "common": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "close": "Close",
+        "edit": "Edit",
+        "delete": "Delete",
+        "showMore": "Show More",
+        "showLess": "Show Less"
+    },
+    "status": {
+        "unpaid": "Unpaid",
+        "paid": "Paid"
+    }
+}

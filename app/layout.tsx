@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TanstackProvider } from "@/lib/tanstack";
+import { I18nProvider } from "@/lib/i18n";
 import "@/public/styles.css";
 
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -18,9 +19,11 @@ type TLayout = {
 const Layout = ({ children }: TLayout) => {
     return (
         <ClerkProvider>
-            <html lang="en" className="dark">
+            <html lang="ar" dir="rtl" className="dark" suppressHydrationWarning>
                 <body className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`}>
-                    <TanstackProvider>{children}</TanstackProvider>
+                    <I18nProvider>
+                        <TanstackProvider>{children}</TanstackProvider>
+                    </I18nProvider>
                 </body>
             </html>
         </ClerkProvider>

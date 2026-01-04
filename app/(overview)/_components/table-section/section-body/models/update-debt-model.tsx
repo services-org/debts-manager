@@ -7,24 +7,26 @@ import Image from "next/image";
 
 import { debtSchema, TDebtSchema } from "@/app/api/debts/schema";
 import { useUpdate, useGet, useModel } from "@/hooks";
+import { useTranslation } from "@/lib/i18n";
 
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-const statusOptions = [
-    { value: "unpaid", label: "Unpaid" },
-    { value: "paid", label: "Paid" },
-];
-
 export const UpdateDebtModel = () => {
+    const { t } = useTranslation();
     const form = useForm<TDebtSchema>({ resolver: zodResolver(debtSchema) });
     const updateDebt = useUpdate(`/debts`, ["debts", "analysis"]);
 
     // Fetch dynamic groups
     const getGroups = useGet("/groups", ["groups"]);
     const groupOptions = (getGroups.data || []).map((g: any) => ({ value: g._id, label: g.name }));
+
+    const statusOptions = [
+        { value: "unpaid", label: t("status.unpaid") },
+        { value: "paid", label: t("status.paid") },
+    ];
 
     const { open, type, data, onClose } = useModel();
 
@@ -46,7 +48,7 @@ export const UpdateDebtModel = () => {
     if (!open || !data?.debt || type !== "update-debt") return null;
 
     return (
-        <Model modelType="update-debt" title="Update Debt" description="Update an existing debt to the overview">
+        <Model modelType="update-debt" title={t("modals.updateDebt.title")} description={t("modals.updateDebt.description")}>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
                     <Image fill src="/debts.jpg" alt="Debtor" className="absolute inset-0 z-0 object-cover opacity-10" />
@@ -57,26 +59,26 @@ export const UpdateDebtModel = () => {
                                 icon={<CheckCircleIcon className="size-4 text-purple-500" />}
                                 options={groupOptions}
                                 name="group"
-                                label="Group"
+                                label={t("table.group")}
                             />
 
                             <Input
                                 icon={<FileTextIcon className="size-4 text-red-500" />}
                                 name="description"
-                                label="Description"
+                                label={t("table.description")}
                             />
 
                             <Input
                                 icon={<DollarSignIcon className="size-4 text-blue-500" />}
                                 name="amount"
-                                label="Amount"
+                                label={t("table.amount")}
                                 type="number"
                             />
 
                             <Input
                                 icon={<CalendarIcon className="size-4 text-cyan-500" />}
                                 name="createdAt"
-                                label="Created At"
+                                label={t("table.createdAt")}
                                 type="date"
                             />
 
@@ -84,16 +86,16 @@ export const UpdateDebtModel = () => {
                                 icon={<CheckCircleIcon className="size-4 text-green-500" />}
                                 options={statusOptions}
                                 name="status"
-                                label="Status"
+                                label={t("table.status")}
                             />
                         </div>
 
-                        <div className="mt-4 ml-auto w-fit space-x-4">
+                        <div className="mt-4 ml-auto w-fit space-x-4 rtl:space-x-reverse">
                             <Button variant="ghost" onClick={onClose}>
-                                Cancel
+                                {t("common.cancel")}
                             </Button>
                             <Button type="submit" className="bg-amber-600 hover:bg-amber-500">
-                                Save
+                                {t("common.save")}
                             </Button>
                         </div>
                     </div>

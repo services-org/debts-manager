@@ -1,17 +1,19 @@
 "use client";
 import { PlusIcon, SettingsIcon } from "lucide-react";
 
+import { useTranslation } from "@/lib/i18n";
 import { GroupsManager } from "./models/groups-manager";
 import { AddDebtModel } from "./models/add-debt-model";
 import { Button } from "@/components/ui/button";
 import { useModel } from "@/hooks";
 
 export const SectionHeader = () => {
+    const { t } = useTranslation();
     const { onOpen } = useModel();
 
     return (
         <div className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50/50 p-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:p-4 dark:border-slate-700 dark:bg-slate-800/80">
-            <h2 className="text-lg font-semibold text-slate-800 sm:text-xl dark:text-slate-100">Debts Overview</h2>
+            <h2 className="text-lg font-semibold text-slate-800 sm:text-xl dark:text-slate-100">{t("table.title")}</h2>
 
             <div className="flex gap-2">
                 <Button
@@ -21,7 +23,7 @@ export const SectionHeader = () => {
                     onClick={() => onOpen("manage-groups")}
                 >
                     <SettingsIcon className="size-4" />
-                    <span className="xs:inline hidden sm:inline">Groups</span>
+                    <span className="xs:inline hidden sm:inline">{t("table.groups")}</span>
                 </Button>
                 <Button
                     size="sm"
@@ -29,7 +31,7 @@ export const SectionHeader = () => {
                     onClick={() => onOpen("add-debt")}
                 >
                     <PlusIcon className="size-4 stroke-[2.5]" />
-                    <span>Add Debt</span>
+                    <span>{t("table.addDebt")}</span>
                 </Button>
             </div>
 

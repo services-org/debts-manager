@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { TDebtSchema } from "@/app/api/debts/schema";
+import { useTranslation } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Table } from "@/components/common";
 import { useGet } from "@/hooks";
@@ -16,6 +17,7 @@ import { StatusCell } from "./cells/status";
 import { GroupCell } from "./cells/group";
 
 export const SectionBody = () => {
+    const { t } = useTranslation();
     const [showMore, setShowMore] = useState(false);
     const getDebts = useGet(`/debts?from=0&to=${showMore ? 10e6 : 5}`, ["debts", `show-${showMore}`]);
 
@@ -48,12 +50,12 @@ export const SectionBody = () => {
                     {showMore ? (
                         <>
                             <ChevronUpIcon className="size-4" />
-                            Show Less
+                            {t("common.showLess")}
                         </>
                     ) : (
                         <>
                             <ChevronDownIcon className="size-4" />
-                            Show More
+                            {t("common.showMore")}
                         </>
                     )}
                 </Button>

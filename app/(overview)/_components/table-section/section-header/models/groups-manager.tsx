@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { groupSchema, TGroupSchema } from "@/app/api/groups/schema";
 import { useCreate, useUpdate, useDelete, useGet, useModel } from "@/hooks";
+import { useTranslation } from "@/lib/i18n";
 
 import { Model } from "@/components/common/model";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ type TGroup = {
 };
 
 export const GroupsManager = () => {
+    const { t } = useTranslation();
     const form = useForm<TGroupSchema>({ resolver: zodResolver(groupSchema), defaultValues: { color: "#f59e0b" } });
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -64,14 +66,22 @@ export const GroupsManager = () => {
     };
 
     return (
-        <Model modelType="manage-groups" title="Manage Groups" description="Create and manage your debt categories">
+        <Model
+            modelType="manage-groups"
+            title={t("modals.manageGroups.title")}
+            description={t("modals.manageGroups.description")}
+        >
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <div className="flex gap-3">
-                        <Input name="name" label="Group Name" placeholder="Group Name" />
+                        <Input
+                            name="name"
+                            label={t("modals.manageGroups.groupName")}
+                            placeholder={t("modals.manageGroups.groupName")}
+                        />
                         <div className="flex flex-col">
                             <label htmlFor="color" className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Color
+                                {t("modals.manageGroups.color")}
                             </label>
                             <input
                                 className="h-10 w-14 cursor-pointer rounded border border-slate-300 dark:border-slate-600"
@@ -85,7 +95,7 @@ export const GroupsManager = () => {
                         </Button>
                         {editingId && (
                             <Button type="button" variant="ghost" className="mt-6" onClick={handleCancel}>
-                                Cancel
+                                {t("common.cancel")}
                             </Button>
                         )}
                     </div>
@@ -93,7 +103,9 @@ export const GroupsManager = () => {
             </FormProvider>
 
             <div className="mt-6 space-y-2">
-                <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400">Your Groups</h4>
+                <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    {t("modals.manageGroups.yourGroups")}
+                </h4>
                 {(getGroups.data || []).map((group: TGroup) => (
                     <div
                         key={group._id}
@@ -117,7 +129,7 @@ export const GroupsManager = () => {
 
             <div className="mt-4 flex justify-end">
                 <Button variant="ghost" onClick={onClose}>
-                    Close
+                    {t("common.close")}
                 </Button>
             </div>
         </Model>

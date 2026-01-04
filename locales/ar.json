@@ -1,0 +1,69 @@
+{
+    "header": {
+        "greeting": "مرحباً!"
+    },
+    "hero": {
+        "badge": "تتبع ذكي",
+        "title1": "تحكم في",
+        "title2": "مستقبلك المالي",
+        "description": "تصور وتتبع وتغلب على ديونك برؤى ذكية.",
+        "trackProgress": "تتبع التقدم",
+        "realTime": "فوري",
+        "manage": "إدارة",
+        "allDebts": "جميع الديون"
+    },
+    "analysis": {
+        "totalDebts": "إجمالي الديون",
+        "unpaid": "غير مدفوع",
+        "paid": "مدفوع",
+        "groupsHeading": "تحليل المجموعات",
+        "groupsBreakdown": "تفاصيل المجموعات",
+        "total": "الإجمالي",
+        "paidPercent": "% مدفوع"
+    },
+    "search": {
+        "title": "البحث",
+        "placeholder": "البحث عن ديون..."
+    },
+    "table": {
+        "title": "نظرة عامة على الديون",
+        "groups": "المجموعات",
+        "addDebt": "إضافة دين",
+        "description": "الوصف",
+        "amount": "المبلغ",
+        "status": "الحالة",
+        "createdAt": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
+        "group": "المجموعة"
+    },
+    "modals": {
+        "addDebt": {
+            "title": "إضافة دين",
+            "description": "إضافة دين جديد للنظرة العامة"
+        },
+        "updateDebt": {
+            "title": "تحديث الدين",
+            "description": "تحديث دين موجود في النظرة العامة"
+        },
+        "manageGroups": {
+            "title": "إدارة المجموعات",
+            "description": "إنشاء وإدارة فئات الديون الخاصة بك",
+            "groupName": "اسم المجموعة",
+            "color": "اللون",
+            "yourGroups": "مجموعاتك"
+        }
+    },
+    "common": {
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "close": "إغلاق",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "showMore": "عرض المزيد",
+        "showLess": "عرض أقل"
+    },
+    "status": {
+        "unpaid": "غير مدفوع",
+        "paid": "مدفوع"
+    }
+}

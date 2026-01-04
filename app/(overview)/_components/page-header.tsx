@@ -1,11 +1,11 @@
 "use client";
-import { LanguagesIcon, MoonIcon, SunIcon } from "lucide-react";
-import { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
-
-import { useTranslation } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+
+import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n";
 
 export const PageHeader = () => {
     const [isDark, setIsDark] = useState(false);

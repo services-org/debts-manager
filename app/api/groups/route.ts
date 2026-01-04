@@ -6,9 +6,6 @@ import { Groups } from "@/models/group";
 import { Debts } from "@/models/debt";
 import { groupSchema } from "./schema";
 
-// Default groups to create for new users
-const defaultGroups = [{ name: "Personal", color: "#22c55e" }];
-
 export const GET = async () => {
     try {
         await DBConnection();
@@ -16,14 +13,8 @@ export const GET = async () => {
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
 
-        const existingGroups = await Groups.find({ userId }).sort("name");
-        if (existingGroups.length) return NextResponse.json(existingGroups);
-
-        const groupsToCreate = defaultGroups.map((g) => ({ ...g, userId }));
-        await Groups.insertMany(groupsToCreate);
-
-        const newGroups = await Groups.find({ userId }).sort("name");
-        return NextResponse.json(newGroups);
+        const groups = await Groups.find({ userId }).sort("name");
+        return NextResponse.json(groups);
     } catch (error: any) {
         return NextResponse.json(error.message, { status: 400 });
     }

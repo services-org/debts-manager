@@ -1,8 +1,8 @@
 "use client";
 import { PlusIcon, SettingsIcon } from "lucide-react";
 
-import { GroupsManager } from "./groups-manager";
-import { AddDebtModel } from "./add-debt-model";
+import { GroupsManager } from "./models/groups-manager";
+import { AddDebtModel } from "./models/add-debt-model";
 import { Button } from "@/components/ui/button";
 import { useModel } from "@/hooks";
 

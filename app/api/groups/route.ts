@@ -42,10 +42,10 @@ export const POST = async (req: NextRequest) => {
 
 export const PUT = async (req: NextRequest) => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
-
-        await DBConnection();
 
         const { _id, ...body } = await req.json();
         if (!_id) return NextResponse.json("ID is required", { status: 400 });
@@ -65,10 +65,10 @@ export const PUT = async (req: NextRequest) => {
 
 export const DELETE = async (req: NextRequest) => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
-
-        await DBConnection();
 
         const { _id } = Object.fromEntries(new URL(req.url).searchParams.entries());
         if (!_id) return NextResponse.json("ID is required", { status: 400 });

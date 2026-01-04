@@ -13,10 +13,10 @@ type TResult = {
 
 export const POST = async (req: Request) => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
-
-        await DBConnection();
 
         const { search } = await req.json();
         if (!search) return NextResponse.json("Missing Data", { status: 400 });

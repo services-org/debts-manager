@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 
 export const PageHeader = () => {
-    const [isDark, setIsDark] = useState(false);
     const { locale, setLocale, t } = useTranslation();
+    const [isDark, setIsDark] = useState(false);
     const { user } = useUser();
 
     useEffect(() => {

@@ -13,10 +13,10 @@ import { Debts } from "@/models/debt";
 */
 export const GET = async () => {
     try {
+        await DBConnection();
+
         const { userId } = await auth();
         if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
-
-        await DBConnection();
 
         // Get user's groups
         const groups = await Groups.find({ userId });
@@ -36,7 +36,7 @@ export const GET = async () => {
 
         // Get summary by group (unpaid only)
         const groupSummary = await Debts.aggregate([
-            { $match: { userId, status: "unpaid" } },
+            { $match: { userId } },
             {
                 $group: {
                     _id: "$group",

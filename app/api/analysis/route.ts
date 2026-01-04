@@ -40,7 +40,9 @@ export const GET = async () => {
             {
                 $group: {
                     _id: "$group",
-                    amount: { $sum: "$amount" },
+                    total: { $sum: { $cond: [{ $eq: ["$status", "unpaid"] }, "$amount", 0] } },
+                    unpaid: { $sum: { $cond: [{ $eq: ["$status", "paid"] }, { $multiply: ["$amount", -1] }, "$amount"] } },
+                    paid: { $sum: { $cond: [{ $eq: ["$status", "paid"] }, "$amount", 0] } },
                 },
             },
         ]);
@@ -52,14 +54,16 @@ export const GET = async () => {
                 _id: g._id,
                 name: g.name,
                 color: g.color,
-                amount: found?.amount || 0,
+                unpaid: found?.unpaid || 0,
+                total: found?.total || 0,
+                paid: found?.paid || 0,
             };
         });
 
         const result = {
+            unpaid: statusSummary?.unpaid || 0,
             total: statusSummary?.total || 0,
             paid: statusSummary?.paid || 0,
-            unpaid: statusSummary?.unpaid || 0,
             groups: groupAmounts,
         };
 

@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 
 type TAnalysisCard = {
+    variant?: "violet" | "amber" | "emerald" | "custom";
     icon: React.ReactNode;
     value: number;
-    label: string;
-    variant?: "violet" | "amber" | "emerald" | "custom";
     color?: string;
+    label: string;
 };
 
 const variantStyles = {
@@ -45,9 +45,9 @@ export const AnalysisCard = ({ label, value, icon, variant = "custom", color }: 
     return (
         <div
             className={cn(
-                "group relative flex items-center gap-3 rounded-xl border p-3 transition-all duration-200 hover:shadow-md sm:gap-4 sm:rounded-2xl sm:p-4",
-                styles.bg,
+                "group relative flex flex-col gap-2 rounded-xl border p-4 transition-all duration-200 hover:shadow-md sm:rounded-2xl sm:p-5",
                 styles.border,
+                styles.bg,
             )}
         >
             {/* Icon container */}
@@ -62,9 +62,9 @@ export const AnalysisCard = ({ label, value, icon, variant = "custom", color }: 
             </div>
 
             {/* Content */}
-            <div className="min-w-0 flex-1">
-                <p className={cn("truncate text-xs font-medium sm:text-sm", styles.text)}>{label}</p>
-                <p className={cn("text-lg font-bold sm:text-xl", styles.value)}>${value?.toLocaleString()}</p>
+            <div className="space-y-1">
+                <p className={cn("text-sm font-medium sm:text-base", styles.text)}>{label}</p>
+                <p className={cn("text-xl font-bold sm:text-2xl", styles.value)}>${value?.toLocaleString()}</p>
             </div>
         </div>
     );

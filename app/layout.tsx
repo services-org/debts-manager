@@ -18,7 +18,7 @@ type TLayout = {
 const Layout = ({ children }: TLayout) => {
     return (
         <ClerkProvider>
-            <html lang="en">
+            <html lang="en" className="dark">
                 <body className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`}>
                     <TanstackProvider>{children}</TanstackProvider>
                 </body>

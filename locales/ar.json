@@ -13,9 +13,9 @@
         "allDebts": "جميع الديون"
     },
     "analysis": {
-        "totalDebts": "المبلغ",
-        "unpaid": "المتاح",
-        "paid": "المصروف",
+        "totalDebts": "اجمالي المبلغ",
+        "unpaid": "اجمالي المتاح",
+        "paid": "اجمالي المصروف",
         "groupsHeading": "تحليل المجموعات",
         "groupsBreakdown": "تفاصيل المجموعات",
         "total": "الإجمالي",

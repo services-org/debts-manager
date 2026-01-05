@@ -9,7 +9,7 @@ export const DBConnection = async () => {
     if (cached) return;
 
     try {
-        mongoose.connect(MONGODB_URI, { bufferCommands: false });
+        await mongoose.connect(MONGODB_URI, { bufferCommands: false });
 
         cached = true;
         console.log("✔️ DB Connection");

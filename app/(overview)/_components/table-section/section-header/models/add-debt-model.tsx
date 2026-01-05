@@ -52,7 +52,7 @@ export const AddDebtModel = () => {
         <Model modelType="add-debt" title={t("modals.addDebt.title")} description={t("modals.addDebt.description")}>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="relative">
-                    <Image fill src="/debts.jpg" alt="Debtor" className="absolute inset-0 z-0 object-cover opacity-10" />
+                    <Image fill src="/debts.png" alt="Debtor" className="absolute inset-0 z-0 object-cover opacity-10" />
 
                     <div className="relative">
                         <div className="space-y-6">

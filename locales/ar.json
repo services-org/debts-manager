@@ -13,13 +13,13 @@
         "allDebts": "جميع الديون"
     },
     "analysis": {
-        "totalDebts": "إجمالي الديون",
-        "unpaid": "غير مدفوع",
-        "paid": "مدفوع",
+        "totalDebts": "المبلغ",
+        "unpaid": "المتاح",
+        "paid": "المصروف",
         "groupsHeading": "تحليل المجموعات",
         "groupsBreakdown": "تفاصيل المجموعات",
         "total": "الإجمالي",
-        "paidPercent": "% مدفوع"
+        "paidPercent": "% المصروف"
     },
     "search": {
         "title": "البحث",
@@ -63,7 +63,7 @@
         "showLess": "عرض أقل"
     },
     "status": {
-        "unpaid": "غير مدفوع",
-        "paid": "مدفوع"
+        "unpaid": "اضالة الي المتاح",
+        "paid": "اضالة الي المصروف"
     }
 }
